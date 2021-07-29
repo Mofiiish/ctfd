@@ -3,9 +3,9 @@
 import os, signal, sys
 import subprocess
 
-TIMU_DIR = "timu-example"   # ´æ·ÅÌâÄ¿µÄÄ¿Â¼
+TIMU_DIR = "timu-example"   # å­˜æ”¾é¢˜ç›®çš„ç›®å½•
 SUBP_LIST = []
-PORT_START = 8010   # Ä¬ÈÏÆğÊ¼¶Ë¿Ú
+PORT_START = 8010   # é»˜è®¤èµ·å§‹ç«¯å£
 
 
 def print_red(str):
@@ -22,7 +22,7 @@ def run(path):
     elif os.path.exists(os.path.join(path, 'Dockerfile')):
         name = path.split("/")[-1]
         subprocess.Popen("docker build -t "+name+" .", cwd=os.path.join(path), shell=True).wait()
-        start_process("docker run --rm --name "+name+" -p "+str(PORT_START)+":80 "+name, os.path.join(path))
+        start_process("docker run --restart=unless-stopped --rm --name "+name+" -p "+str(PORT_START)+":80 "+name, os.path.join(path))
         print_red("[*] started "+ path + " in port:"+str(PORT_START))
         PORT_START += 1
 
